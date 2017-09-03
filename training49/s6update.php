@@ -1,19 +1,20 @@
 <body>
-<form action=s6update.php>
-<input name=updid value=1003>
-<input name=updename value=chula>
-<input type=submit value=s6update.php>
+<form action="s6update.php">
+<input name="updid" value="1003">
+<input name="updname" value="chula">
+<input type="submit" value="s6update.php">
 </form>
 <?php
-require("s1connect.php");
 if (!isset($_GET['updid'])) { exit; }
-$sql="update worker set ";
+require("s1connect.php");
+$sql="update $tb set ";
 $sql.="eid='". $_GET['updid'] ."', ";
-$sql.="ename='". $_GET['updename'] ."' ";
+$sql.="ename='". $_GET['updname'] ."' ";
 $sql.="where eid='". $_GET['updid'] ."'";
 if(!$result=mysql_db_query($db,$sql))
-echo "$sql : not found";
-else echo "$sql : ok";
+  echo "$sql : failed";
+else 
+  echo "<meta http-equiv='refresh' content='0; url=s0index.php'/>";
 mysql_close($connect);
 ?>
 </body>
