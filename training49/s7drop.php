@@ -1,9 +1,9 @@
 <?php
 require("s1connect.php");
-$sql="drop database $db";
-if (!$result=mysql_query($sql,$connect))
-  echo "Database : not found";
+if (!$result=mysql_query("drop database $db",$connect))
+  echo "Drop database : failed";
 else
-  echo "Database : droped";
+  echo "Drop database : succeeded";
 mysql_close($connect);
 ?>
+<input type='button' onclick="location.href='s0index.php'" value='back'>
