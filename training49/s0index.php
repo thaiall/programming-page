@@ -12,4 +12,5 @@
 <?php
   if(file_exists("s3select.php")) include("s3select.php");
 ?>
+test on bash again
 </body></html>
