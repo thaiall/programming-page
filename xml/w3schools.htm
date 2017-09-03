@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html><body><h1>W3Schools Internal Note</h1>
+<div>
+<b>To:</b> <span id="to"></span><br>
+<b>From:</b> <span id="from"></span><br>
+<b>Message:</b> <span id="message"></span>
+</div>
+<pre>
+Test in Local computer with file:///c:/w3schools.htm with file:///c:/w3schools.xml
+	- Succeeded in Firefox 56.0
+	- Failed in Chrome 60.0, IE 11, Microsoft Edge 38, Opera 47
+Test in Web Server
+	- Succeeded in all browser above
+</pre>	
+<script>
+var xmlhttp, xmlDoc;
+try {
+xmlhttp = new XMLHttpRequest();
+xmlhttp.open("GET", "w3schools.xml", false);
+xmlhttp.send();
+xmlDoc = xmlhttp.responseXML;
+document.getElementById("to").innerHTML=xmlDoc.getElementsByTagName("to")[0].childNodes[0].nodeValue;
+document.getElementById("from").innerHTML=xmlDoc.getElementsByTagName("from")[0].childNodes[0].nodeValue;
+document.getElementById("message").innerHTML=xmlDoc.getElementsByTagName("body")[0].childNodes[0].nodeValue;
+} catch(e) { alert(e.message); }
+// Source code from https://www.w3schools.com/xml/xsl_client.asp
+</script>
+</body>
+</html>

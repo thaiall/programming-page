@@ -1,0 +1,5 @@
+title: Programming Page
+description: collection of the computer language for learners
+theme: jekyll-theme-leap-day
+exclude: ["secretfile.htm"]
+include: ["aboutme.htm","css","test01.php","php.htm","menu.js"]

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE employee [
+	<!ELEMENT employee (empl*)> 
+    <!ATTLIST employee
+	department CDATA #IMPLIED>	
+	<!ELEMENT empl (emplid, emplname, emplsalary)>
+        <!ELEMENT emplid (#PCDATA)>
+        <!ELEMENT emplname (#PCDATA)>
+        <!ELEMENT emplsalary (#PCDATA)>
+]>
+<employee>
+<empl department="sale">
+<emplid>45001</emplid>
+<emplname>thanom</emplname>
+<emplsalary>15000</emplsalary>
+</empl>
+<empl department="sale">
+<emplid>45002</emplid>
+<emplname>pikun</emplname>
+<emplsalary>9999</emplsalary>
+</empl>
+<empl department="admin">
+<emplid>45003</emplid>
+<emplname>sombat</emplname>
+<emplsalary>12500</emplsalary>
+</empl>
+</employee>
+	
+	
+	
+
+<!--
+<!DOCTYPE xsl:stylesheet [
+  <!ENTITY ast "assistant">
+]>
+<root>
+<p>Entity &ast;</p>
+</root>
+-->
+
