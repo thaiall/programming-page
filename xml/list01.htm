@@ -1,0 +1,82 @@
+<html><head>
+<script>
+/*
+Code name : list01.htm (http://www.thaiall.com/xml/list01.htm)
+Test in Local computer
+	- Succeeded on Firefox, IE (Allow blocked content)
+	- Failed on Chrome, Opera, Ms Edge
+Test on Web server
+	- Succeeded on Firefox, IE, Chrome, Opera
+	- Failed on Ms Edge
+*/
+var xml, xmlDoc, xsl, xslDoc, formatresult, xsltProcessor, msg;
+if (window.ActiveXObject || "ActiveXObject" in window) {
+	// FOR : IE
+	// ActiveXObject used in only IE : https://docs.microsoft.com/en-us/scripting/javascript/reference/activexobject-object-javascript
+	xml = new ActiveXObject("Microsoft.XMLDOM");
+	xml.async = false;
+	xml.load("employees.xml");	
+	// empl60.xml have DTD (Document Type Definition)
+	// but this sample failed to use http://www.thaiall.com/xml/empl60.xml
+	xsl = new ActiveXObject("Microsoft.XMLDOM");
+	xsl.async = false;
+	xsl.load("list01.xsl");
+	// Compare with 2 xmlns (Name Space) in this sample
+	// xmlns:xsl="http://www.w3.org/TR/WD-xsl" succeeded in ActiveXObject but failed in XMLHttpRequest
+	// xmlns:xsl="http://www.w3.org/1999/XSL/Transform" succeeded both ActiveXObject and XMLHttpRequest
+	formatresult = xml.transformNode(xsl);	
+	document.write("Use ActiveXObject for Internet Explorer<br/>" + formatresult);
+} else if ( navigator.userAgent.toLowerCase().indexOf('firefox') > -1) { 
+	// FOR : Chrome, Opera, Firefox (Except MS Edge and IE)<br/>
+	// Condition is sample of Firefox but it succeeded in other browser except IE
+	document.write("Use Anonymous function in xml.onload<br/>");
+	xml=new XMLHttpRequest();
+	xml.open("GET","empl60.xml");	
+	// can use http://www.thaiall.com/xml/employees.xml which have not DTD
+	xml.onload = function() {
+		var xmlDoc = this.responseXML; 
+		var xsl = new XMLHttpRequest();
+		xsl.open('GET', "empl60.xsl"); 
+		// anonymous function : https://www.w3schools.com/js/js_function_definition.asp
+		xsl.onload = function() {
+			xsltDoc = this.responseXML;
+			var proc = new XSLTProcessor();
+			proc.importStylesheet(xsltDoc);
+			formatresult = proc.transformToFragment(xmlDoc, document);
+			document.getElementById("myPage").appendChild(formatresult);
+		};
+		xsl.send();
+	};
+	xml.send();	
+} else {
+	// FOR : Chrome, Opera, Firefox (Except MS Edge and IE)<br/>
+	document.write("Use Anonymous function in window.onload<br/>");
+	xml=new XMLHttpRequest();
+	xml.open("GET","employees.xml",false);	
+	// can use http://www.thaiall.com/xml/empl60.xml which have DTD
+	xml.send();
+	xmlDoc = xml.responseXML;	
+	xsl=new XMLHttpRequest();
+	xsl.open("GET","empl60.xsl",false);	
+	// xsl.open("GET","list01.xsl",false); fail if use xmlns:xsl="http://www.w3.org/TR/WD-xsl" in this file
+	xsl.send();
+	xslDoc = xsl.responseXML;
+	xsltProcessor=new XSLTProcessor();	
+	xsltProcessor.importStylesheet(xslDoc);	
+	formatresult = xsltProcessor.transformToFragment(xmlDoc,document);		
+	window.onload = function() { 
+		document.getElementById("myPage").appendChild(formatresult); 
+	};
+} 
+// Sample of _testHtml.htm : https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/9484576/	
+// Opera 20.00 Build 1387.77 : http://www.oldapps.com/opera.php?old_opera=14368
+// Explain XML Parser : http://www.xmlfiles.com/dom/dom_parser.asp
+// Full example of XSL : https://www.w3schools.com/xml/xsl_client.asp
+// Explain working of XMLHttpRequest() :  https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS
+// Tryit of XMLHttpRequest() : https://www.w3schools.com/xml/tryit.asp?filename=tryxml_parsertest	
+// Tryxslt of xml + xsl : https://www.w3schools.com/xml/xsl_value_of.asp
+// My test on getelementbyid : http://www.thaiall.com/xml/getelementbyid.htm 
+// Talk about MS Edge : http://www.thaiall.com/blog/burin/8841/
+</script></head>
+<body id="myPage">
+</body></html>

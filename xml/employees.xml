@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<employee>
+<empl department="sale">
+<emplid>45001</emplid>
+<emplname>thanom</emplname>
+<emplsalary>15000</emplsalary>
+</empl>
+<empl department="sale">
+<emplid>45002</emplid>
+<emplname>pikun</emplname>
+<emplsalary>9999</emplsalary>
+</empl>
+<empl department="admin">
+<emplid>45003</emplid>
+<emplname>sombat</emplname>
+<emplsalary>12500</emplsalary>
+</empl>
+</employee>

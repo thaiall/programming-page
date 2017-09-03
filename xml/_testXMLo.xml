@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xsl:stylesheet [
+  <!ENTITY ast "assistant">
+]>
+
+<root>
+<p>Entity &ast;</p>
+</root>
+
+<!-- Source code from https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/9484576/ -->
