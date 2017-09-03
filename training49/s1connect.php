@@ -1,10 +1,11 @@
 <?php
-$db = "perlphpasp";
-$host = "127.0.0.1:3306";
-$uname = "root";
-$passwd = "";
-if (!$connect=mysql_connect($host,$uname,$passwd)){
- echo 'Could not connect to mysql';
- exit;
+ini_set('display_errors', 0); // 0 =  'Off'
+$db 	= "perlphpasp"; // will be created in s2crtdb.php
+$host 	= "localhost";
+$uname 	= "root";
+$upass 	= "";
+$tb		= "worker";
+if (!$connect = mysql_connect($host,$uname,$upass)){
+ die('connect : failed');
 }
 ?>
