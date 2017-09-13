@@ -5,13 +5,22 @@
 <input type=submit value=s4insert.php>
 </form>
 <?php
+/* updated for php7 and php 5 on 2560-09-13 */
+if (!isset($_GET['nid']) || !isset($_GET['nname'])) exit;
 require("s1connect.php");
-if (!isset($_GET['nid']) || !isset($_GET['nname']))
-  exit;
-$sql="insert into worker values('$nid','$nname')";
-if(!$result=mysql_db_query($db,$sql))
-echo "$sql : not found";
-else echo "$sql : ok";
-mysql_close($connect);
+$sql="insert into $tb values('".$_GET['nid']."','".$_GET['nname']."')";
+if((int)phpversion() >= 7) {
+	if($connect->query($sql) === FALSE) 
+		echo "$sql : failed";
+	else 
+		echo "$sql : succeeded";
+	$connect->close();
+} else {	
+	if(!$result=mysql_db_query($db,$sql)) 
+		echo "$sql : failed";
+	else 
+		echo "$sql : succeeded";
+	mysql_close($connect);
+}
 ?>
 </body>
