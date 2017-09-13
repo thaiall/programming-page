@@ -1,4 +1,4 @@
-<html><head>
+<html><head><title>MySQL Lesson</title>
 <meta http-equiv="content-type" content="text/html;charset=utf-8" />
 </head><body><ol><b>Manage data in mysql</b>
 <li>s1connect.php</li>
@@ -10,7 +10,9 @@
 <li><a href="s7drop.php">s7drop.php</a></li>
 </ol>
 <?php
+/* updated for php7 and php 5 on 2560-09-13 */  
   if(file_exists("s3select.php")) include("s3select.php");
 ?>
-test on bash again
+<br/>สวัสดีชาวโลก 
+<br/>Hello World!
 </body></html>
