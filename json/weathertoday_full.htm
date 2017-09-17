@@ -1,0 +1,80 @@
+<html><head>
+<title>การดึง WEBSERVICE สภาพอากาศมาใช้ โดยใช้ PHP และ JQUERY</title>
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> 
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
+</head><body>
+บทความ จาก <a href="http://webunique.in.th/blog/2016/05/06/%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%94%E0%B8%B6%E0%B8%87-webservice-%E0%B8%AA%E0%B8%A0%E0%B8%B2%E0%B8%9E%E0%B8%AD%E0%B8%B2%E0%B8%81%E0%B8%B2%E0%B8%A8%E0%B8%A1%E0%B8%B2%E0%B9%83%E0%B8%8A%E0%B9%89/">บริษัท เว็บยูนีค จำกัด</a>
+<div class="container" style="padding:25px;">
+	<div class="row">
+		<h3>สภาพอากาศประเทศไทยวันนี้</h3>
+		<div class="form-group">
+			<label for="sel1">กรุณาเลือกจังหวัด</label>
+			<select class="form-control" id="plist">   
+			</select>
+		</div>
+	</div>
+	<div class="row">
+		<div id="preview">   
+		</div>
+	</div>
+</div>
+<a href="weathertoday_v1.htm">รุ่น 1 document.write ง่ายสุด</a> ::
+<a href="weathertoday_v2.htm">รุ่น 2 append เข้า td</a> ::
+<a href="weathertoday_v3.htm">รุ่น 3 ใช้ bootstrap แสดง tag:select</a> ::
+<a href="weathertoday_v4.htm">รุ่น 4 เชื่อม google map</a> ::
+<a href="weathertoday_getjson.php">json ลดเหลือ 2 สถานี้ เป็น static data แทน curl()</a> ::
+<a href="https://github.com/thaiall/programming-page/tree/master/json">github</a> ::
+</body></html>
+
+<script>
+$(document).ready(function(){
+	// สร้างตัวแปร dataget ไว้สำหรับเก็บข้อมูลทั้งหมด
+	var dataget;   
+	
+	// ใช้ ajax ในการเรื่ยกข้อมูล
+	$.ajax({
+		url: 'weathertoday_getjson.php',   // เรียกไฟล์ชือ getjson.php
+		data: {	format: 'json' },   // รูปแบบข้อมูล เป็น json		
+		error: function() { alert("ไม่สามารถดึงข้อมูลได้"); }, // ถ้า error
+		dataType: 'json',    // ชนิดข้อมูล json
+		success: function(data) {    // การทำงานลังจาก load ข้อมูลทั้งหมดมาแล้ว
+			dataget = data.Stations;   // ตัวแปร dataget รับค่า รายงานอากาศทั้งหมด ของทุกสถานนี
+			var indexselect = 0;   // ตั้ง index ในการดึงข้อมูล 0 เป็นค่าเริ่มต้น คือสถานีแรก
+			var newhtml = '';    // ตัวแปร newhtml เป็นการต่อ string html ข้อมูลของสถานี
+			newhtml += '<p>สถานนีรายงานอากาศ : '+dataget[indexselect]['StationNameTh']+'</p>';
+			newhtml += '<p>จังหวัด : '+dataget[indexselect]['Province']+'</p>';
+			newhtml += '<p>ละติจดู (N)  : '+dataget[indexselect]['Latitude'].Value+'</p>';
+			newhtml += '<p>ลองติจูด(E)  : '+dataget[indexselect]['Longitude'].Value+'</p>';
+			newhtml += '<p>วันที่ตรวจวัด  : '+dataget[indexselect]['Observe'].Time+'</p>';
+			newhtml += '<p>อุณหภูมอากาศป ิ ัจจุบัน(องศาเซลซียส)  : '+dataget[indexselect]['Observe']['Temperature'].Value+'</p>';
+			newhtml += '<p>อุณหภูมสิูงสุดใน24ชม.ที่ผ่านมา(องศาเซลซียส)   : '+dataget[indexselect]['Observe']['MaxTemperature'].Value+'</p>';
+			newhtml += '<p>อุณหภูมติ่ําสดใน ุ 24ชม.ที่ผ่านมา(องศาเซลซียส)   : '+dataget[indexselect]['Observe']['MinTemperature'].Value+'</p>';
+			newhtml += '<p> ค่าเฉลี่ยความชื้นสัมพทธั ์(เปอร์เซ็นต์)    : '+dataget[indexselect]['Observe']['RelativeHumidity'].Value+'</p>';
+			$("#preview").html(newhtml);   // นำค่า newhtml ใส่เข้าไปใน div#preview
+			$.each(data.Stations,function(i){    // loop ข้อมูลทั้งหมดใส่ select ให้ user เลือ
+				$("#plist").append('<option value="'+i+'">'+data.Stations[i]['StationNameTh']+'</option>'); // เพิ่ม option ให้กับ select
+				// ใส่ event สำหรับ select เมื่อ user เลือกข้อมูล
+				$("#plist").on('change', function() {              
+					var indexselect =  $(this).val();     // set ค่า index ข้อมูล 
+					var newhtml = '';
+					newhtml += '<p>สถานนีรายงานอากาศ : '+dataget[indexselect]['StationNameTh']+'</p>';
+					newhtml += '<p>จังหวัด : '+dataget[indexselect]['Province']+'</p>';
+					newhtml += '<p>ละติจดู (N)  : '+dataget[indexselect]['Latitude'].Value+'</p>';
+					newhtml += '<p>ลองติจูด(E)  : '+dataget[indexselect]['Longitude'].Value+'</p>';
+					newhtml += '<p>วันที่ตรวจวัด  : '+dataget[indexselect]['Observe'].Time+'</p>';
+					newhtml += '<p>อุณหภูมอากาศป ิ ัจจุบัน(องศาเซลซียส)  : '+dataget[indexselect]['Observe']['Temperature'].Value+'</p>';
+					newhtml += '<p>อุณหภูมสิูงสุดใน24ชม.ที่ผ่านมา(องศาเซลซียส)   : '+dataget[indexselect]['Observe']['MaxTemperature'].Value+'</p>';
+					newhtml += '<p>อุณหภูมติ่ําสดใน ุ 24ชม.ที่ผ่านมา(องศาเซลซียส)   : '+dataget[indexselect]['Observe']['MinTemperature'].Value+'</p>';
+					newhtml += '<p> ค่าเฉลี่ยความชื้นสัมพทธั ์(เปอร์เซ็นต์)    : '+dataget[indexselect]['Observe']['RelativeHumidity'].Value+'</p>';
+					$("#preview").html(newhtml);              
+				});                        
+			});   
+		},
+		type: 'GET'
+	});
+	
+});
+</script>

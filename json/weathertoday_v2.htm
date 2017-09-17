@@ -1,0 +1,16 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> 
+<table style="border-style:solid;"><tr><td id="plist"></td></tr></table>
+<script>
+$(document).ready(function(){
+	$.ajax({
+		url: 'weathertoday_getjson.php',		
+		dataType: 'json', 
+		success: function(data) {	 
+			$.each(data.Stations,function(i){ 
+				$("#plist").append(data.Stations[i]['StationNameTh']+'<br/>'); 
+				$("#plist").append(data.Stations[1]['Observe']['Temperature'].Value+'<br/>'); 
+			});   
+		}		
+	});	
+});
+</script>

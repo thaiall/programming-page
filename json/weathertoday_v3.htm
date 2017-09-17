@@ -1,0 +1,18 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> 
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+
+<select class="form-control" id="plist"></select>
+
+<script>
+$(document).ready(function(){
+	$.ajax({
+		url: 'weathertoday_getjson.php', 		
+		dataType: 'json', 		
+		success: function(data) {	 
+			$.each(data.Stations,function(i){ 
+				$("#plist").append('<option value="'+i+'">'+data.Stations[i]['StationNameTh']+'</option>'); 
+			});   
+		}		
+	});	
+});
+</script>

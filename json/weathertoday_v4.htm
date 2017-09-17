@@ -1,0 +1,60 @@
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> 
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
+</head><body>
+บทความ จาก <a href="http://webunique.in.th/blog/2016/05/06/%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%94%E0%B8%B6%E0%B8%87-webservice-%E0%B8%AA%E0%B8%A0%E0%B8%B2%E0%B8%9E%E0%B8%AD%E0%B8%B2%E0%B8%81%E0%B8%B2%E0%B8%A8%E0%B8%A1%E0%B8%B2%E0%B9%83%E0%B8%8A%E0%B9%89/">บริษัท เว็บยูนีค จำกัด</a>
+<div class="container" style="padding:25px;">
+	<div class="row">
+		<h3>สภาพอากาศประเทศไทยวันนี้</h3>
+		<div class="form-group">
+			<label for="sel1">กรุณาเลือกจังหวัด</label>
+			<select class="form-control" id="plist">  
+			</select>
+		</div>
+	</div>
+	<div class="row">
+		<div id="preview">
+		</div>
+	</div>
+</div>
+</body></html>
+
+<script>
+$(document).ready(function(){
+	var dataget;   
+	var google = "https://maps.google.co.th/maps/@";
+	// https://www.google.co.th/maps/@19.29897,97.97577,17z
+	// https://www.google.com/maps?z=15&q=19.29897+97.97577	
+	// https://www.google.com/maps?z=15&mrt=yp&t=k&q=19.29897+97.97577	
+	
+	$.ajax({
+		url: 'weathertoday_getjson.php',   
+		dataType: 'json',    
+		success: function(data) { 
+			dataget = data.Stations; 
+			var indexselect = 0; 
+			var newhtml = '';  
+			newhtml += '<p>สถานนีรายงานอากาศ : '+dataget[indexselect]['StationNameTh']+'</p>';
+			newhtml += '<p>อุณหภูมอากาศป ิ ัจจุบัน(องศาเซลซียส)  : '+dataget[indexselect]['Observe']['Temperature'].Value+'</p>';
+			newhtml += '<p><a href='+google+dataget[indexselect]['Latitude'].Value;
+			newhtml += ','+dataget[indexselect]['Longitude'].Value+',17z target=_blank>map</a>';
+			$("#preview").html(newhtml);  
+			$.each(data.Stations,function(i){
+				$("#plist").append('<option value="'+i+'">'+data.Stations[i]['StationNameTh']+'</option>');
+				$("#plist").on('change', function() {              
+					var indexselect =  $(this).val();
+					var newhtml = '';
+					newhtml += '<p>สถานนีรายงานอากาศ : '+dataget[indexselect]['StationNameTh']+'</p>';
+					newhtml += '<p>อุณหภูมอากาศป ิ ัจจุบัน(องศาเซลซียส)  : '+dataget[indexselect]['Observe']['Temperature'].Value+'</p>';
+					newhtml += '<p><a href='+google+dataget[indexselect]['Latitude'].Value;
+					newhtml += ','+dataget[indexselect]['Longitude'].Value+',17z target=_blank>map</a>';			
+					$("#preview").html(newhtml);              
+				});                        
+			});   
+		},
+		type: 'GET'
+	});
+});
+</script>

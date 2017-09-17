@@ -1,0 +1,16 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> 
+<script>
+$(document).ready(function(){
+	$.ajax({
+		url: 'weathertoday_getjson.php',		
+		dataType: 'json', 
+		success: function(data) {	 
+			document.write(data.Header['Title']+'<br/>');
+			document.write(data.Stations[0]['StationNameTh']+'<br/>');
+			document.write(data.Stations[0]['Observe']['Temperature'].Value+'<br/>');
+			document.write(data.Stations[1]['StationNameTh']+'<br/>');
+			document.write(data.Stations[1]['Observe']['Temperature'].Value+'<br/>');
+		}		
+	});	
+});
+</script>
