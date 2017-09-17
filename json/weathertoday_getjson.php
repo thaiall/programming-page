@@ -1,5 +1,5 @@
 <?php    
-// เริ่มต้น curl
+/* // เริ่มต้น curl
 $ch = curl_init(); 
 
 // set url สำหรับดึงข้อมูล 
@@ -15,7 +15,7 @@ $output = curl_exec($ch);
 curl_close($ch);    
 
 // output ออกไปครับ
-//echo $output;
+echo $output; */
 ?>{
 "Header":{
 "Title":"WeatherToday","Description":"Today's Weather Observation","Uri":"https://data.tmd.go.th/api/WeatherToday/V1",
