@@ -1,10 +1,4 @@
-<?php  
-/*
-ปรับภาษาไทยของแฟ้ม XML
-แฟ้มของ xml ของ truehits.net เป็น  encoding="windows-874" 
-จึงต้องใช้  echo iconv("TIS-620","UTF-8",$output);
-*/
-
+<?php 
 // เริ่มต้น curl
 $ch = curl_init(); 
 
@@ -21,6 +15,8 @@ $output = curl_exec($ch);
 curl_close($ch);    
 
 // output ออกไปครับ
-// echo $output;
-echo iconv("TIS-620","UTF-8",$output);
+//$output = iconv("TIS-620","UTF-8",$output);
+//$output = preg_replace("/<!.*?]>/ms","",$output);
+//$output = preg_replace("/\n/","",$output);
+echo $output;
 ?>
