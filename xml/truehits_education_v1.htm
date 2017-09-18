@@ -1,0 +1,17 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> 
+<script>
+$(document).ready(function(){
+	$.ajax({
+		url: 'truehits_education_getxml.php',		
+		dataType: 'xml', 
+		success: function(xml) {
+				dataget = $(xml).find("member");
+				alert(dataget.text());
+                $(xml).find("member").each(function(){
+					document.write($(this).find("url").text()+'<br/>');	// only [url] : www.thailocalmeet.com	
+					document.write($(this).text()+'<br/>'); // all in [member] : www.thailocalmeet.com www.thailocalmeet.com 179 9534 18032 22429 49451 9
+                }); 
+		}		
+	});	
+});
+</script>

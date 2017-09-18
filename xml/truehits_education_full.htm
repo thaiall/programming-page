@@ -1,0 +1,60 @@
+<html><head>
+<title>การดึง WEBSERVICE สถิติเว็บไซต์ด้านการศึกษา โดยใช้ PHP และ JQUERY</title>
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> 
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
+</head><body>
+บทความ จาก <a href="http://webunique.in.th/blog/2016/05/06/%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%94%E0%B8%B6%E0%B8%87-webservice-%E0%B8%AA%E0%B8%A0%E0%B8%B2%E0%B8%9E%E0%B8%AD%E0%B8%B2%E0%B8%81%E0%B8%B2%E0%B8%A8%E0%B8%A1%E0%B8%B2%E0%B9%83%E0%B8%8A%E0%B9%89/">บริษัท เว็บยูนีค จำกัด</a>
+<div class="container" style="padding:25px;">
+	<div class="row">
+		<h3>สถิติเว็บไซต์ด้านการศึกษาวันนี้</h3>
+		<div class="form-group">
+			<label for="sel1">กรุณาเลือกเว็บไซต์</label>
+			<select class="form-control" id="plist">   
+			</select>
+		</div>
+	</div>
+	<div class="row">
+		<div id="preview">   
+		</div>
+	</div>
+</div>
+<a href="truehits_education_v1.htm">รุ่น 1  ค่าของ  $(this).find("url").text() กับ $(this).text()</a> ::
+<a href="truehits_education_getxml.php">xml ที่ได้จาก truehits.net</a> ::
+<a href="https://github.com/thaiall/programming-page/tree/master/xml">github</a> ::
+</body></html>
+
+<script>
+$(document).ready(function(){
+	// สร้างตัวแปร dataget ไว้สำหรับเก็บข้อมูลทั้งหมด
+	var dataget = []; 	
+	// ใช้ ajax ในการเรื่ยกข้อมูล			
+	$.ajax({
+		url: 'truehits_education_getxml.php',   // เรียกไฟล์ชือ getxml.php
+		dataType: 'xml',    // ชนิดข้อมูล xml
+		success: function(xml) {    // การทำงานลังจาก load ข้อมูลทั้งหมดมาแล้ว
+			$(xml).find("member").each(function(){			
+				$("#plist").append('<option value="'+ $(this).find("url").text() + '">' + $(this).find("url").text() +'</option>'); // เพิ่ม option ให้กับ select
+				dataget[$(this).find("url").text()] = $(this).text();
+			}); 
+		},
+		type: 'GET'
+	});
+	$("#plist").on('change', function() {              		
+		var myurl =  $(this).val();     // set ค่า index ข้อมูล 					
+		var fld = dataget[myurl].split("\n");
+		var newhtml = '';
+		newhtml += '<p>url : '+ fld[1] +'</p>';
+		newhtml += '<p>website : '+ fld[2] +'</p>';
+		newhtml += '<p>sort : '+ fld[3] +'</p>';	
+		newhtml += '<p>sortallmember : '+ fld[4] +'</p>';
+		newhtml += '<p>uniqueip : '+ fld[5] +'</p>';
+		newhtml += '<p>uniquesession : '+ fld[6] +'</p>';
+		newhtml += '<p>previews : '+ fld[7] +'</p>';
+		newhtml += '<p>sortcategory : '+ fld[8] +'</p>';
+		$("#preview").html(newhtml);              
+	});		
+});
+</script>
