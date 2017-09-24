@@ -2,16 +2,22 @@
 /* 
 Script_name : Northwind.php
 Source_code : http://www.thaiall.com/perlphpasp/source.pl?9141
-Version 1.2560-09-15
+Version 1.2560-09-24
 ###########################
+- Use function_exists for mysql_connect
 - Test mysqli() on PHP 7.1 and PHP 5.6 
-- Test mysql_connect() on PHP 5.6 because it fail on PHP 7.1 
-- can use php=7 and php=5 to control testing
+- Test mysql_connect() on PHP 5.6 because it failed on PHP 7.1 
+- Can use php=7 and php=5 to control testing with XAMPP from https://www.apachefriends.org
 - Northwind.mdb for mysql in SQL format was shared in http://www.thaiall.com/mysql/northwindwithsqlfile.zip
-- We can test SQL with Northwind at https://www.w3schools.com/sql/sql_join_inner.asp
 - Use "mytable" from http://www.thaiall.com/web2/rsp62.css
 - Can read about subquery at http://www.dofactory.com/sql/subquery
-########################### */
+- Test SQL command - online on https://www.w3schools.com/sql/sql_join_inner.asp
+- Test SQL command - offline on http://www.alexnolan.net/software/mdb_viewer_plus.htm (Copyright 2004 - 2013)
+########################### 
+Requirement before start this script
+- Download : http://www.thaiall.com/mysql/northwindwithsqlfile.zip
+- Import northwindfromphpmyadmin.sql in to MySQL 
+*/
 
 /* Section 1 : Configuration */
 $host 			= 	"localhost";
@@ -21,11 +27,11 @@ $db 			= 	"northwind";
 
 /* Section 2 : Variable */
 $maxField		= 	10; 
-$lineperpage	=	25;
+$lineperpage	= 	25;
 $linenumber		= 	true;
 if(isset($_GET["p"])) $currentpage = $_GET["p"]; else $currentpage = 1;
 if((int)phpversion() >= 7) $php7 = true; else $php7 = false;
-if(isset($_GET["php"]) && $_GET["php"] == "7") $php7 = true; else $php7 = false;
+if(isset($_GET["php"])) { if($_GET["php"] == "7") $php7 = true; else $php7 = false; }
 $mytable = "<style>	
 .mytable { margin-left:auto; margin-right:auto; }
 .mytable td {padding:3px; border-bottom: 1px solid #dddddd; }
@@ -39,7 +45,11 @@ if($php7) {
 	$connect = new mysqli($host, $uname, $upass, $db);
 	if ($connect->connect_error) die("Connection failed: " . $connect->connect_error);
 } else {
-	if(!$connect = mysql_connect($host, $uname, $upass)) die("Connect failed : ");
+	if (function_exists('mysql_connect')) {	
+		if(!$connect = mysql_connect($host, $uname, $upass)) die("Connect failed : ");
+	} else {
+		die("function mysql_connect : not exist in PHP");
+	}
 }
 
 /* Section 4 : SQL Command */
@@ -126,7 +136,7 @@ if(isset($_GET["t"])) {
 	from (orders inner join `order details` on orders.orderid = `order details`.orderid 
 	inner join products on `order details`.productid = products.productid) 
 	where `order details`.unitprice > 100
-	"; break;			
+	"; break; // testing : [pass] in phpmyadmin but [fail] in MDBviewerplus			
 	
 	/* 15 - function sum in group by */
 	case "15": $sql="
@@ -149,6 +159,7 @@ if(isset($_GET["t"])) {
 	where orders.shipcountry ='Spain' 
 	group by employees.employeeid
 	"; break;			
+	
 	/* 18 - subquery and inner join and count >0 and no data of number 6 */
 	case "18": $sql="
 	select * from employees where employeeid in 
@@ -176,12 +187,12 @@ if($php7) {
 	if ($result->num_rows == 0) die("Query : failed<br/>" . $sql);
 	$numField = mysqli_num_fields($result);
 	if($numField < $maxField) $maxField = $numField;	
-	echo $mytable . "<table class='mytable'><tr>";
+	echo $mytable . "<table class='mytable'><tr style='background-color:black;color:white;'>";
 	if($linenumber) echo "<td>no.</td>";			
 	$i = 0;
 	while ($fieldinfo=mysqli_fetch_field($result)) {
-		if ($i++ < $maxField) echo "<td style='background-color:#ffffdd;text-align:center'>" . $fieldinfo->name . "</td>";
-    }
+		if ($i++ < $maxField) echo "<td style='text-align:center'>" . $fieldinfo->name . "</td>";
+	}
 	echo "</tr>";	
 	$cntrec=1;
 	$totalRec = mysqli_num_rows($result);
@@ -239,9 +250,13 @@ if($php7) {
 echo '<br/><a href="?t=1">Table:Orders</a> : <a href="?t=0&sql=show">SQL show</a> : <a href="?t=1&php=5">PHP5</a> : <a href="?t=1&php=7">PHP7</a>';
 
 /* Section 6 : Page number control */
-/* Sample from http://www.thaiall.com/php/indexo.html#short47 */ 
+/* 
+Sample from http://www.thaiall.com/php/indexo.html#short47 
+$totalrec = Total record in table such as 60
+$lpp = Line per page || Record per page to display such as 25
+$page = Page number such as (1:1-25, 2:26-50, 3:51-60)
+*/ 
 function totalpage($totalrec,$lpp) { return ceil($totalrec / $lpp); }
 function firstrec($totalrec,$lpp,$page) { return (($lpp * ($page - 1) + 1) > $totalrec ? 1 : ($lpp * ($page - 1) + 1)); }
 function lastrec($totalrec,$lpp,$page) { return (($lpp * $page) > $totalrec ? $totalrec : ($lpp * $page)); }
 ?>
-
