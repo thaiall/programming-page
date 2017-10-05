@@ -12,5 +12,5 @@ link type="text/css" rel="stylesheet" href="https://raw.githubusercontent.com/th
 <p># <a href="https://github.com/thaiall/programming-page/blob/master/README.md">https://github.com/thaiall/programming-page/blob/master/README.md</a></p>
 <p># <a href="http://jekyllrb.com/docs/configuration/">http://jekyllrb.com/docs/configuration/</a></p>
 <p># <a href="http://projectpages.github.io/project-pages/">Project page theme demo</a></p>
-
+<p># <a href="https://thaiall.github.io/programming-page/">https://thaiall.github.io/programming-page/</a></p>
 <p><div class="sharethis-inline-share-buttons"></div></p>
