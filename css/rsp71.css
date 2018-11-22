@@ -1,6 +1,7 @@
-/* ��Ѻ��ا : 2561-08-11
-�������Ѻ http://www.thaiall.com/web2
-����� homepage : https://thaiall.github.io/programming-page/css/
+/* ปรับปรุง : 2561-11-22
+- เริ่มใช้กับ http://www.thaiall.com/web2  
+- ใช้ UTF-8 แทน Windows-874 เริ่มปรับ 22 พฤศจิกายน 2561
+- แบ่งปันที่ http://thaiall.github.io/www/web2
 */
 @font-face{font-family:'THChakraPetch'; src: url('rsp_thchakrapetch.ttf');}
 @font-face{font-family:'AlexBrush'; src: url('rsp_alexbrush.ttf');}
@@ -30,40 +31,45 @@ color:#000088;
 background-color:#ddffdd;
 } 
 fieldset{
-margin:10px 0px 0px 0px 	!important;
-padding:0px					!important;
-border:1px solid gray		!important; 
-border-radius:5px			!important; 
-margin-left:auto			!important;
-margin-right:auto			!important;
+margin:10px 0px 0px 0px  !important;
+border:1px solid gray !important; 
+border-radius:10px !important; 
+margin-left:auto !important;
+margin-right:auto !important;
 } 
 legend{
 font-family:thchakrapetch;	
-background-color:#000044	!important;
-color:#ffffdd				!important;
-font-size:24px				!important;
-margin:10px	10px 0px 10px 	!important; 
-padding:10px 10px 5px 10px	!important;
-border:2px solid #f9f9f9	!important;
-max-width:fit-content		!important; 
-border-radius:10px			!important; 
+background-color:#000044;
+color:#ffffdd;
+font-size:24px;
+margin:0px 0px 0px 10px; 
+padding:5px 20px 0px 10px !important;
+border:2px outset #dddddd !important;
+max-width:fit-content !important; 
+border-radius:5px 20px !important; 
 }
-.googl {position:absolute;left:0px;top:131px;width:120px;font-size:8px;font-family:WRTishkid2}
-.thchakrapetch20 {font-family:thchakrapetch;font-size:20px;color:#444444;}
-.odd{background-color:#ddffdd;}
-.even{background-color:#ffffdd;}
-.mytable {
-margin-left:auto;
-margin-right:auto;
+.m_reference{
+font-family:sawasdee;
+font-size:12px;
+padding:10px !important;	
+background-color:#ffffdd;
+font-weight:bold;
+color:#444444;
 }
-.mytable td {
-padding:3px; 
-border-bottom: 1px solid #dddddd;
+.shortnav {
+color:white;
+font-family:WRTishkid2;
+font-size:20px;
+background-color:#000044 !important;
 }
-.mytable tr:nth-child(even) {background-color: #ddffdd}
-.mytable tr:nth-child(odd) {background-color: #ffffdd}
-.mytable tr:hover {background-color: #ddddff}
-
+.shortnav a:link,.shortnav a:visited {
+color:white;
+font-size:12px;
+}
+.shortnav a:hover {
+color:#aaaaaa;
+font-size:12px;
+}
 .topbar{
 width:100%;
 background-color:black;
@@ -82,22 +88,26 @@ text-decoration:none;
 text-align:center;
 } 
 .foot_text{
+font-family:sawasdee;	
+font-size:12px;
+font-weight:bold;
 color:white;
 text-decoration:none;
 }
-table, .table_zero{
+table{
 padding:0px;
 border:0px;
-border-spacing:0px;
+vertical-align:top;
 }
-.unline{
-text-decoration:none;
-}
-#m_town{
-text-align:center;
-}
+.odd{background-color:#ddffdd;}
+.even{background-color:#ffffdd;}
+.mytable {margin-left:auto;margin-right:auto;}
+.mytable td {padding:3px; border-bottom: 1px solid #dddddd;}
+.mytable tr:nth-child(even) {background-color: #ddffdd}
+.mytable tr:nth-child(odd) {background-color: #ffffdd}
+.mytable tr:hover {background-color: #ddddff}
 
-/* ipad ��Ҵ����Թ 768 ����ǹ��� */
+/* ipad ขนาดไม่เกิน 768 ทำส่วนนี้ */
 .m_still_1000{
 width:1000px;
 background-color:white;
@@ -117,8 +127,6 @@ border-spacing:0px;
 .m_still_footer{
 width:728px;
 font-size:8px !important; 
-padding:0px;
-border-spacing:0px;
 }
 .m_banner_320{
 visibility:hidden;
@@ -132,8 +140,6 @@ float:left;
 } 
 .m_hidden_footer{
 width:728px;
-font-size:8px;
-padding:0px;
 border-spacing:0px;
 } 
 .m_hidden_search{
@@ -292,7 +298,7 @@ border-spacing:0px;
 float:left;
 }
 
-/* iphone5:320 ��Ҵ����Թ 320 ����ǹ��� */
+/* iphone5:320 ขนาดไม่เกิน 320 ทำส่วนนี้ */
 @media only screen and (max-width:320px) {
 .syntaxhighlighter { width: 315px !important; border: 1px solid gray !important; }	
 .m_still, .m_still_1000, .m_still_footer{visibility:visible;width:315px} 
@@ -304,7 +310,7 @@ float:left;
 .m_hidden_turn{visibility:visible;display:inline} 
 } 
 
-/* iphone6:375 galaxy s5:360 ��Ҵ 321 - 375 ����ǹ��� */
+/* iphone6:375 galaxy s5:360 ขนาด 321 - 375 ทำส่วนนี้ */
 @media only screen and (min-width:321px) and (max-width:375px) { 
 .syntaxhighlighter { width: 355px !important; border: 1px solid green !important; }	
 .m_still, .m_still_1000, .m_still_footer{visibility:visible;width:355px} 
@@ -316,7 +322,7 @@ float:left;
 .m_hidden_turn{visibility:visible;display:inline} 
 } 
 
-/*  nexus 5x:411 ��Ҵ 376 - 414 ����ǹ��� */
+/*  nexus 5x:411 ขนาด 376 - 414 ทำส่วนนี้ */
 @media only screen and (min-width:376px) and (max-width:414px) { 
 .syntaxhighlighter { width: 406px !important; border: 1px solid black !important; }	
 .m_still, .m_still_1000, .m_still_footer{visibility:visible;width:406px} 
@@ -328,7 +334,7 @@ float:left;
 .m_hidden_turn{visibility:visible;display:inline} 
 }
 
-/* nexus 6p:435 ��Ҵ 414 - 728 ����ǹ��� */
+/* nexus 6p:435 ขนาด 414 - 728 ทำส่วนนี้ */
 @media only screen and (min-width:414px) and (max-width:728px) { 
 .syntaxhighlighter { width: 430px !important; border: 1px solid blue !important; }	
 .m_still, .m_still_1000, .m_still_footer{visibility:visible;width:430px} 
@@ -336,20 +342,19 @@ float:left;
 .m_min120_img, .m_min160_img, .m_min180_img, .m_min200_img, .m_min240_img, .m_min260_img, .m_min280_img, .m_min300_img, .m_min320_img, .m_min360_img, .m_min400_img, .m_min420_img,  .m_min460_img, .m_min480_img,.m_min510_img, .m_min520_img, .m_min540_img, .m_min560_img{width:420px;} 
 .m_min120h, .m_min160h, .m_min180h, .m_min200h, .m_min240h, .m_min260h, .m_min280h, .m_min300h, .m_min320h, .m_min360h, .m_hidden, .m_hidden_search, .m_hidden_footer, .m_hidden_sub{visibility:hidden;display:none} 
 #m_town{visibility:hidden;display:none} 
-.m_banner_320{width:430px;height:110px;margin-left:auto;margin-right:auto;visibility:visible;display:block} 
+.m_banner_320{width:430px;height:110px;margin-left:auto;margin-right:auto;visibility:visible;display:block;} 
 .m_hidden_turn{visibility:visible;display:inline} 
 }
 
 /* top navigator */
 #bar_topnav{width:100%;height:30px;background-color:#000044;margin:0px 0px 0px 0px;padding:0px;border-spacing:0px;border-style:none}
-
 ul.topnav {list-style-type: none;margin:0px;padding:0px;overflow:hidden;background-image:url(rspbar.png)}
 ul.topnav li{float:left}
-ul.topnav li a {display:inline-block;margin:0px;color:white;text-align:center;padding:5px 5px;text-decoration:none;font-size:10px;height:30px}
+ul.topnav li a {display:inline-block;margin:0px;color:white;text-align:center;padding:5px 5px;text-decoration:none;font-family:WRTishkid2;font-size:15px;height:30px}
 ul.topnav li a:hover {color:yellow;}
 ul.topnav li.icon {display:none}
 
-/* iphone6 plus ��Ҵ����Թ 414 ����ǹ��� */
+/* iphone6 plus ขนาดไม่เกิน 414 ทำส่วนนี้ */
 @media screen and (max-width:414px){ 
 ul.topnav li:not(:first-child) {display:none;} 
 ul.topnav li.icon{float:right;display:inline-block;} 
@@ -358,4 +363,3 @@ ul.topnav.responsive li.icon{position:absolute;right:0px;top:0px;}
 ul.topnav.responsive li{float:none;display:inline;}
 ul.topnav.responsive li a {display:block;text-align:left;}
 }
-/* ul.topnav.responsive li a {display:block;text-align:left;margin:5px 0px 10px;} */
