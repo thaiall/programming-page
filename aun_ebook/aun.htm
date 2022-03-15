@@ -1,14 +1,12 @@
-
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
-	<!-- css -->
+	<!-- css  -->
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<link rel="stylesheet" type="text/css" href="ipages.css">
 	<style>
 		.ipgs {
-
-			width: 1433.6px;
+			width: 600px;
 			margin:0 ;
 		}
 		.ipgs-page .ipgs-data {
@@ -59,44 +57,33 @@
 	</style>
 	<!-- /end css -->
 </head>
-	<script>
-$(".myBox").click(function() {
-	document.getElementById('Hh').value="ss";
-  //window.location = $(this).find("a").attr("href"); 
-  return false;
-});
-	</script>
 <script> 
 window.onload = function () {
     var el = document.getElementById("title-div");
     el.onclick = sayHello;
-
 function sayHello() {
 	var instance = $('#flipbook').ipages('instance');
 	instance.gotoPage(5);
 	document.getElementById('Hh').value="sss";
 }	
 </script> 	
-
 <body>
 <!-- flipbook markup -->
 <div style="background-color:aqua;float:left;width:-174.08px;height:921.6px;">...
 <input type="text" id="Hh"><div id="roott">.</div>
-<button onclick="per.shoot(event)">Test01</button>	
+<button id="Test01" onclick="per.shoot(event)">Test01</button>	
 </div>	
 <div id="flipbook" style="float: right;top:0px">
 	<div>
 		<img width="300px" height="370px" src="aun/1011-2022_Page_01.jpg" usemap="#Map"/>
 		<div style="position: absolute;top:120px;left: 100px;width: 100px;height: 200;border: 3px solid blue;" onclick="per.shoot(event);">
-			<a href="javascript:per.shoot(event);">Test03</a>
-			<button  id="b" onclick="per.shoot(event)">Test02</button>
+			<a id="Test02" href="javascript:per.shoot(event);">Test02</a>
 		</div>
 	</div>
-
 	<div class="txt-center">
-	<div style="position: absolute;top:100px;left: 100px;width: 100px;height: 50;border: 3px solid blue;"><a href="javascript:clickorder();">kanpim</a></div>
+	<div style="position: absolute;top:100px;left: 100px;width: 100px;height: 50;border: 3px solid blue;">
+	<a href="//aun.ebook.bz" title="javascript:clickorder();" target="_blank">kanpim</a></div>
 		<img width="300px" height="370px" src="aun/1011-2022_Page_02.jpg" alt=""/>
-
 	</div>
 	<div class="txt-center">
 		<img width="300px" height="370px" src="aun/1011-2022_Page_03.jpg" alt=""/>
@@ -104,14 +91,13 @@ function sayHello() {
 	<div class="txt-center">
 		<img width="300px" height="370px" src="aun/1011-2022_Page_04.jpg" alt=""/>
 	</div>
-	<div class="txt-center"><a onClick="clickorder();" href="javascript:clickorder();" target="_blank">kanpim.com</a> <p>สวัสดียามเข้า Once upon a time there were four little Rabbits, and their names were: Flopsy, Mopsy, Cotton-tail, and Peter.<br/>They lived with their Mother in a sand-bank, underneath the root of a very big fir-tree.</p></div>
+	<div class="txt-center"><a title='onClick="clickorder();"' href="//aun.ebook.bz" target="_blank">kanpim.com</a> 
+	<p>สวัสดียามเข้า Once upon a time there were four little Rabbits, and their names were: Flopsy, Mopsy, Cotton-tail, and Peter.<br/>They lived with their Mother in a sand-bank, underneath the root of a very big fir-tree.</p></div>
 	<div><p>"Now, my dears," said old Mrs. Rabbit one morning, "you may go into the fields or down the lane, but don't go into Mr. McGregor's garden: your Father had an accident there; he was put in a pie by Mrs. McGregor."</div>
-	
 </div>
-		
 <input type="hidden" id="W" value="1280">
 <input type="hidden" id="H" value="1024">
-	 <br>
+<br>
 <input type="hidden" id="Ww" >
 <script> 
 	function mycheck()
@@ -137,12 +123,9 @@ $(document).ready(function() {
 		bookEngine: 'TwoPageFlip',
 		responsive: true,
 		autoFit: true,
-		autoHeight: true,
-		
-		padding:{top:0,right:8,bottom:8,left:0},
-		
-		pageNumbersHidden:[1,-1],
-		
+		autoHeight: true,		
+		padding:{top:0,right:8,bottom:8,left:0},		
+		pageNumbersHidden:[1,-1],		
 		toolbarControls: [
 			{type:'share',        active:true},
 			{type:'outline',      active:true},
@@ -160,38 +143,26 @@ $(document).ready(function() {
 			{type:'fullscreen',   active:true, optional:true} 
 		]
 	};
-	
 	$('#flipbook').ipages(options);
-	
 	$('#flipbook').on('ipages:ready', function(e, plugin) {
-		console.log('event:ready');
+	console.log('event:ready');
 	});
-	
 	$('#flipbook').on('ipages:showpage', function(e, plugin, page) {
 		console.log('event:showpage [' + page + ']');
-				document.getElementById('Hh').value=page;		
+		document.getElementById('Hh').value=page;		
 	});
-	
 	$('#flipbook').on('ipages:hidepage', function(e, plugin, page) {
 		console.log('event:hidepage [' + page + ']');
 	});
-
-	$('#flipbook').on('ipages:click', function(e, plugin, page) {
-		console.log(4);
-	});
-
 	class Football {
 	  shoot(a) {
-		  document.getElementById('Hh').value= "Working";
+		document.getElementById('Hh').value= a.target.getAttribute('id') + " : Working";
 		//var instance = $('#flipbook').ipages('instance');
 		//instance.gotoPage(5);
-		/*
-		The 'this' keyword refers to the component object
-		*/
+		/* The 'this' keyword refers to the component object */
 	  }
 	}
-	per = new Football()
-	
+	per = new Football()	
 });
 </script>
 <!-- /end scripts-section -->

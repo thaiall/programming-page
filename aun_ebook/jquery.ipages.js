@@ -1827,7 +1827,10 @@
 			autoEnableOutline: false, // Show/hide the outline controls with bookmarks after the book init
 			autoEnableShare: false, // Show/hide the share dialog box after the book init
 			
-			bookmarks: [], // Sets bookmarks for the book (link or page number), they shown inside the outline control
+			// bookmarks: [], // Sets bookmarks for the book (link or page number), they shown inside the outline control
+			bookmarks: [
+			{text:'thaiall', link:'http://www.thaiall.com/',target:'blank'}
+			],
 			//---------------------------------------------
 			// Example:
 			//bookmarks: [
@@ -2253,30 +2256,23 @@
 		},
 		
 		_bind: function() {
-
-
-			if('ontouchstart' in window && this.config.touchNavigation) {
+			if('ontouchstart' in window && this.config.touchNavigation) {				
 				this.controls.$stage.on('touchstart', $.proxy(this._onBookTouch, this));
 				this.controls.$stage.on('touchmove', $.proxy(this._onBookTouch, this));
-				this.controls.$stage.on('touchend', $.proxy(this._onBookTouch, this));
-			}
-			
+				this.controls.$stage.on('touchend', $.proxy(this._onBookTouch, this));				
+			}		
 			if(this.config.mouseDragNavigation) {
 				this.controls.$stage.on('mousedown', $.proxy(this._onBookMouse, this));
-			}
-			
+			}			
 			this.controls.$stage.on(this.touchMouseEvent.down, $.proxy(this._onSwipeDown, this));
 			this.controls.$stage.on(this.touchMouseEvent.move, $.proxy(this._onSwipeMove, this));
 			this.controls.$stage.on(this.touchMouseEvent.up, $.proxy(this._onSwipeUp, this));
-			
 			if(this.config.mousePageClickNavigation) {
 				this.controls.$stage.on('click', $.proxy(this._onBookMouseClick, this));
 			}
-			
 			if(this.config.mouseWheelNavigation) {
 				this.controls.$stage.on('mousewheel', $.proxy(this._onMouseWheelNavigation, this));
 			}
-			
 			if(this.config.keyboardNavigation) {
 				this.controls.$stage.on('keydown', $.proxy(this._onKeyboardNavigation, this));
 			}
@@ -2318,9 +2314,10 @@
 			this.controls.$stage.off('touchstart', $.proxy(this._onBookTouch, this));
 			this.controls.$stage.off('touchmove', $.proxy(this._onBookTouch, this));
 			this.controls.$stage.off('touchend', $.proxy(this._onBookTouch, this));
-			
+
+			/* test */
 			this.controls.$stage.off('mousedown', $.proxy(this._onBookMouse, this));
-			
+
 			this.controls.$stage.off(this.touchMouseEvent.down, $.proxy(this._onSwipeDown, this));
 			this.controls.$stage.off(this.touchMouseEvent.move, $.proxy(this._onSwipeMove, this));
 			this.controls.$stage.off(this.touchMouseEvent.up, $.proxy(this._onSwipeUp, this));
@@ -3011,19 +3008,21 @@
 		},
 
 /* --------------------------------- start mobile : touch screen  ------------------------------------ */
-		
 		_onBookTouch: function(e) {
+			throw new Error("stop onBookTouch");
+
 			if($(e.target).is('a')) {
 				return;
-			}
-			//alert("mobile");
-
-			var type;
+			}		
+			var type;				
 			switch(e.type) {
-				case 'touchstart': type = this.touchMouseEvent.down; break;
+				case 'touchstart': {
+					type = this.touchMouseEvent.down; 
+					//document.getElementById('Hh').value="mobile touchstart";	
+				} break;
 				case 'touchend': {  
 					type = this.touchMouseEvent.up;   
-					document.getElementById('Hh').value="mobile";	
+					//document.getElementById('Hh').value="mobile touchend";	
 				} break;
 				case 'touchmove':  {				
 					e.preventDefault();
@@ -3033,14 +3032,12 @@
 				default:
 					return;
 			}
-
 			var touch = e.originalEvent.touches[0], touchMouseEvent;
 			if(type == this.touchMouseEvent.up) {
 				touchMouseEvent = this._normalizeEvent(type, e, null, null);
 			} else {
 				touchMouseEvent = this._normalizeEvent(type, e, touch.pageX, touch.pageY);
 			}
-
 			$(e.target).trigger(touchMouseEvent);
 		},
 
