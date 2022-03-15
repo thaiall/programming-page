@@ -3009,53 +3009,60 @@
 		_onOrientationChange: function() {
 			this._updateBookEngine();
 		},
+
+/* --------------------------------- start mobile : touch screen  ------------------------------------ */
 		
 		_onBookTouch: function(e) {
 			if($(e.target).is('a')) {
 				return;
 			}
-			alert("1");
-
+			//alert("mobile");
 
 			var type;
 			switch(e.type) {
 				case 'touchstart': type = this.touchMouseEvent.down; break;
-				case 'touchend':   type = this.touchMouseEvent.up;   break;
-				case 'touchmove':  {
+				case 'touchend': {  
+					type = this.touchMouseEvent.up;   
+					document.getElementById('Hh').value="mobile";	
+				} break;
+				case 'touchmove':  {				
 					e.preventDefault();
-					e.stopPropagation();
-					
+					e.stopPropagation();					
 					type = this.touchMouseEvent.move; 
 				} break;
 				default:
 					return;
 			}
-			
-			var touch = e.originalEvent.touches[0],
-			touchMouseEvent;
+
+			var touch = e.originalEvent.touches[0], touchMouseEvent;
 			if(type == this.touchMouseEvent.up) {
 				touchMouseEvent = this._normalizeEvent(type, e, null, null);
 			} else {
 				touchMouseEvent = this._normalizeEvent(type, e, touch.pageX, touch.pageY);
 			}
+
 			$(e.target).trigger(touchMouseEvent);
 		},
-		
-		_onBookMouse: function(e) {
-			if($(e.target).is('a')) {
-				return;
-			}
 
+		/* --------------------------------- start mouse : desktop ------------------------------------ */
+
+		_onBookMouse: function(e) {
+			if($(e.target).is('a')) {				
+				return;
+			}		
 
 			e.preventDefault(); // FireFox has issues without this line //!!!
 			e.stopPropagation();
 			
 			var type, fireClickEvent = false;
+
 			switch (e.type) {
 				case 'mousedown': {
 					type = this.touchMouseEvent.down;
+
 					console.log('...');
 					document.getElementById('Hh').value=e.clientX+"+"+e.clientY;					
+
 					this.dragNavigation.target = e.target;
 					this.dragNavigation.startX = this.dragNavigation.x = e.pageX;
 					this.dragNavigation.startY = this.dragNavigation.y = e.pageY;
@@ -3090,7 +3097,7 @@
 					return;
 				}
 			}
-			
+
 			var touchMouseEvent = this._normalizeEvent(type, e, e.pageX, e.pageY);
 			$(e.target).trigger(touchMouseEvent);
 			
@@ -3099,6 +3106,8 @@
 			}
 		},
 		
+	/* ---------------------------------------------------------------------------------- */ 
+
 		_onSwipeDown: function(e) {
 			this.lastDelta = {x: e.pageX, y: e.pageY};
 			this.controls.$bookTransform.addClass('ipgs-no-transition');
@@ -3132,7 +3141,9 @@
 		_onBookMouseClick: function(e, target) {
 			target = target || e.target;
 			var $page = $(target).closest('.ipgs-page');
-			alert("1");
+
+			alert("onBookMouseClick");
+
 			if($page.length) {
 				switch(this.engineClass) {
 					case 'ipgs-twopageflip': {
