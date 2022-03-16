@@ -2315,9 +2315,6 @@
 			this.controls.$stage.off('touchmove', $.proxy(this._onBookTouch, this));
 			this.controls.$stage.off('touchend', $.proxy(this._onBookTouch, this));
 
-			/* test */
-			this.controls.$stage.off('mousedown', $.proxy(this._onBookMouse, this));
-
 			this.controls.$stage.off(this.touchMouseEvent.down, $.proxy(this._onSwipeDown, this));
 			this.controls.$stage.off(this.touchMouseEvent.move, $.proxy(this._onSwipeMove, this));
 			this.controls.$stage.off(this.touchMouseEvent.up, $.proxy(this._onSwipeUp, this));
@@ -3009,7 +3006,8 @@
 
 /* --------------------------------- start mobile : touch screen  ------------------------------------ */
 		_onBookTouch: function(e) {
-			throw new Error("stop onBookTouch");
+			// mobile
+			// throw new Error("stop onBookTouch");
 
 			if($(e.target).is('a')) {
 				return;
@@ -3025,8 +3023,8 @@
 					//document.getElementById('Hh').value="mobile touchend";	
 				} break;
 				case 'touchmove':  {				
-					e.preventDefault();
-					e.stopPropagation();					
+					// e.preventDefault(); // mobile enable to click
+ 					// e.stopPropagation();					
 					type = this.touchMouseEvent.move; 
 				} break;
 				default:
@@ -3048,8 +3046,8 @@
 				return;
 			}		
 
-			e.preventDefault(); // FireFox has issues without this line //!!!
-			e.stopPropagation();
+			// e.preventDefault(); // FireFox has issues without this line //!!!
+			// e.stopPropagation();
 			
 			var type, fireClickEvent = false;
 
@@ -3058,7 +3056,7 @@
 					type = this.touchMouseEvent.down;
 
 					console.log('...');
-					document.getElementById('Hh').value=e.clientX+"+"+e.clientY;					
+					// document.getElementById('Hh').value=e.clientX+"+"+e.clientY;					
 
 					this.dragNavigation.target = e.target;
 					this.dragNavigation.startX = this.dragNavigation.x = e.pageX;
@@ -3159,16 +3157,16 @@
 		},
 		
 		_onPrevBtnClick: function(e) {
-			e.preventDefault();
-			e.stopPropagation();
+			// e.preventDefault();
+			// e.stopPropagation();
 			
 			this.controls.$stage.focus();
 			this._gotoPrev();
 		},
 		
 		_onNextBtnClick: function(e) {
-			e.preventDefault();
-			e.stopPropagation();
+			// e.preventDefault();
+			// e.stopPropagation();
 			
 			this.controls.$stage.focus();
 			this._gotoNext();
@@ -3187,8 +3185,8 @@
 		_onMouseWheelNavigation: function(e, delta) {
 			// sometimes we need to disable/enable default behavior
 			if(this.config.mouseWheelPreventDefault) {
-				e.preventDefault();
-				e.stopPropagation();
+				// e.preventDefault();
+				// e.stopPropagation();
 			}
 			
 			if(delta<0) {
@@ -3215,8 +3213,8 @@
 		
 		_onMouseWheelZoom: function(e, delta) {
 			if(this.config.mouseWheelPreventDefault) {
-				e.preventDefault();
-				e.stopPropagation();
+				// e.preventDefault();
+				// e.stopPropagation();
 			}
 
 			var rcStage = this.controls.$stage.get(0).getBoundingClientRect(),
@@ -3258,8 +3256,8 @@
 			this.pinchZoom.aStart = e.originalEvent.touches[0] && e.originalEvent.touches.length > 1;
 			this.pinchZoom.bStart = e.originalEvent.touches[1];
 			if (!this.pinchZoom.aIsMoving && !this.pinchZoom.bIsMoving && this.pinchZoom.aStart && this.pinchZoom.bStart) {
-				e.preventDefault();
-				e.stopPropagation();
+				// e.preventDefault();
+				// e.stopPropagation();
 				
 				this.controls.$stage.focus();
 				this.controls.$bookTransform.addClass('ipgs-no-transition');
@@ -3318,8 +3316,8 @@
 		},
 		
 		_onPinchZoomTouchEnd: function(e) {
-			e.preventDefault();
-			e.stopPropagation();
+			// e.preventDefault();
+			// e.stopPropagation();
 			
 			// when touch events are not present, use mouse events.
 			this.controls.$stage.off('touchmove', $.proxy(this._onPinchZoomTouchMove, this));
@@ -3376,16 +3374,16 @@
 		},
 		
 		_onPageNumberLabelClick: function(e) {
-			e.preventDefault();
-			e.stopPropagation();
+			// e.preventDefault();
+			// e.stopPropagation();
 			
 			this.$body.one('click', $.proxy(this._onPageNumberInputHide, this));
 			this._pageNumberInputShow();
 		},
 		
 		_onPageNumberInputClick: function(e) {
-			e.preventDefault();
-			e.stopPropagation();
+			// e.preventDefault();
+			// e.stopPropagation();
 		},
 		
 		_onPageNumberInputHide: function(e) {
@@ -3449,7 +3447,7 @@
 		
 		_onThumbClick: function(e) {
 			e.preventDefault;
-			e.stopPropagation();
+			// e.stopPropagation();
 			
 			var pageIndex = $(e.target).data('page-index');
 			this._gotoPage(pageIndex);
@@ -3467,10 +3465,9 @@
 		
 		_onBookmarkClick: function(e) {
 			e.preventDefault;
-			e.stopPropagation();
-			
+			// e.stopPropagation();
 			var $bookmark = $(e.currentTarget);
-			
+		
 			if($(e.target).is('.ipgs-state')) {
 				$bookmark.toggleClass('ipgs-folded');
 			} else {
@@ -3596,8 +3593,8 @@
 		
 		_onToggleShare: function(e) {
 			if(e) {
-				e.preventDefault();
-				e.stopPropagation();
+				// e.preventDefault();
+				// e.stopPropagation();
 				
 				var target = e.toElement || e.relatedTarget;
 				if(this.controls.$shareDialog.has(target).length === 0 && !this.controls.$shareDialog.is(target)) {
