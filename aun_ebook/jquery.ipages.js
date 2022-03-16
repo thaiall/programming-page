@@ -3136,9 +3136,6 @@
 		_onBookMouseClick: function(e, target) {
 			target = target || e.target;
 			var $page = $(target).closest('.ipgs-page');
-
-			alert("onBookMouseClick");
-
 			if($page.length) {
 				switch(this.engineClass) {
 					case 'ipgs-twopageflip': {
